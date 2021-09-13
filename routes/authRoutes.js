@@ -17,18 +17,21 @@ router.get("/login", isLoggedIn, (req, res) => {
   res.render("login", { username: "kazion500" });
 });
 
-router.post("/login", isLoggedIn, async (req, res) => {
-  const { username, password } = req.body;
-  if (!username) {
-    return res.redirect("/login");
+router.post(
+  "/login",
+  body("username").isEmail(),
+  body("password").isLength({ min: 5 }),
+  isLoggedIn,
+  async (req, res) => {
+    const { username, password } = req.body;
+    const matched = await verifyPassword(username, password);
+    if (!matched) {
+      return res.render("login", { error: "check your credentials" });
+    }
+    req.session.user = user;
+    res.redirect("/dashboard");
   }
-  const matched = await verifyPassword(username, password);
-  if (!matched) {
-    return res.render("login", { error: "check your credentials" });
-  }
-  req.session.user = user;
-  res.redirect("/dashboard");
-});
+);
 
 router.get("/register", isLoggedIn, (req, res) => {
   res.render("register");
@@ -60,16 +63,16 @@ router.post(
     const newUser = await user.create({
       data: {
         username,
-        hashedPassword,
+        password: hashedPassword,
         firstName,
         lastName,
       },
     });
 
     if (newUser) {
-      return res.redirect("/login");
+      return res.redirect("/auth/ogin");
     }
-    res.redirect("/register");
+    res.redirect("/auth/register");
   }
 );
 

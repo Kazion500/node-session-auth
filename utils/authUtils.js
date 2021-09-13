@@ -1,7 +1,7 @@
 const bcrypt = require("bcrypt");
 const PrismaClient = require("./prismaUtils");
 const { user } = new PrismaClient();
-const RAW_SALT = process.env.RAW_SALT;
+const RAW_SALT = parseInt(process.env.RAW_SALT, 10);
 async function verifyPassword(username, password) {
   const user = await getUser(username);
   const match = await bcrypt.compare(password, user.password);
