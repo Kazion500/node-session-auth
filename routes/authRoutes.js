@@ -25,10 +25,11 @@ router.post(
   async (req, res) => {
     const { username, password } = req.body;
     const matched = await verifyPassword(username, password);
+    const user = await getUser(username);
     if (!matched) {
       return res.render("login", { error: "check your credentials" });
     }
-    req.session.user = user;
+    req.session.user = user || undefined;
     res.redirect("/dashboard");
   }
 );
