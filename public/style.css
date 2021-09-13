@@ -1,0 +1,45 @@
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  width: 80%;
+  margin: 0 auto;
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#form {
+  border: 2px lightgrey solid;
+  padding: 20px;
+  width: 30%;
+  border-radius: 10px;
+}
+
+.form-group {
+  padding: 10px 0;
+}
+
+.controls {
+  width: 100%;
+  padding: 15px 5px;
+  border-radius: 5px;
+}
+
+.btn-wrapper{
+    margin-top: 30px;
+}
+
+.btn {
+  width: 100%;
+  padding: 15px 10px;
+  outline: 0;
+  border: 0;
+  background: black;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  color: white;
+}

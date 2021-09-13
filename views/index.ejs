@@ -1,0 +1,7 @@
+<%- include('partials/head',{title:"Home"}) %>
+<h1>Hi <%= locals.user.username %></h1>
+<div>
+  <a href="/auth/login">Login</a>
+  <a href="/auth/register">Register</a>
+</div>
+<%- include('partials/footer') %>
